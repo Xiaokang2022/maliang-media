@@ -1,5 +1,11 @@
 """APIs for playing videos"""
 
+from __future__ import annotations
+
+__all__ = [
+    "VideoCanvas",
+]
+
 import abc
 import platform
 import time
@@ -13,32 +19,28 @@ import typing_extensions
 from tkintertools.animation import animations, controllers
 from tkintertools.core import containers, virtual
 from tkintertools.standard import images, widgets
-from tkintertools.style import manager
+from tkintertools.theme import manager
 from tkintertools.toolbox import enhanced
 
 from . import icons
 
-__all__ = [
-    "VideoCanvas",
-]
-
 
 class _CustomizedWidget(virtual.Widget, abc.ABC):
-    """Provide the ability to switch icon theme"""
+    """Provide the ability to switch icon theme."""
 
     def _bind(self, *, icon: str) -> None:
         """process some thing about theme"""
         self._icon = icon
-        self._theme(manager.get_color_mode() == "dark")
+        self._theme(manager.get_color_mode())
         manager.register_event(self._theme)
 
-    def _theme(self, dark: bool) -> None:
+    def _theme(self, theme: typing.Literal["light", "dark"]) -> None:
         """Switch the icon theme of the widget"""
         if self.images:
             self.images[0].destroy()
+
         images.StillImage(
-            self, image=self.master.master._icons[
-                self._icon]["dark" if dark else "light"])
+            self, image=self.master.master._icons[self._icon][theme])
 
 
 class _FullscreenToggleButton(widgets.ToggleButton, _CustomizedWidget):
@@ -67,7 +69,7 @@ class _PlayButton(widgets.Button, _CustomizedWidget):
     def _toggle(self) -> None:
         """Force to change the icon image"""
         self._icon = "pause" if self._icon == "play" else "play"
-        self._theme(manager.get_color_mode() == "dark")
+        self._theme(manager.get_color_mode())
         self.images[0].zoom((1, 1))
 
 
@@ -76,16 +78,15 @@ class VideoCanvas(containers.Canvas):
 
     def __init__(
         self,
-        master: "containers.Tk | containers.Canvas",
+        master: containers.Tk | containers.Toplevel | containers.Canvas,
         *,
         controls: bool = False,
         loop: bool = False,
         click_pause: bool = True,
         expand: typing.Literal["", "x", "y", "xy"] = "xy",
-        zoom_item: bool = False,
+        auto_zoom: bool = False,
         keep_ratio: typing.Literal["min", "max"] | None = None,
         free_anchor: bool = False,
-        name: str = "Canvas",
         **kwargs,
     ) -> None:
         """
@@ -94,15 +95,15 @@ class VideoCanvas(containers.Canvas):
         * `loop`: whether the video loops automatically
         * `click_pause`: whether to pause when clicked
         * `expand`: the mode of expand, `x` is horizontal, and `y` is vertical
-        * `zoom_item`: whether or not to scale its items
+        * `auto_zoom`: whether or not to scale its items
         * `keep_ratio`: the mode of aspect ratio, `min` follows the minimum
         value, `max` follows the maximum value
         * `free_anchor`: whether the anchor point is free-floating
         * `kwargs`: compatible with other parameters of class `tkinter.Canvas`
         """
         containers.Canvas.__init__(
-            self, master, expand=expand, zoom_item=zoom_item,
-            keep_ratio=keep_ratio, free_anchor=free_anchor, name=name, **kwargs)
+            self, master, expand=expand, auto_zoom=auto_zoom,
+            keep_ratio=keep_ratio, free_anchor=free_anchor, **kwargs)
 
         self._icons = icons.parse()
         self._player = self._schedule = None
@@ -133,8 +134,8 @@ class VideoCanvas(containers.Canvas):
                     callback=True), "+")
 
     @typing_extensions.override
-    def re_place(self) -> None:
-        containers.Canvas.re_place(self)
+    def zoom(self) -> None:
+        containers.Canvas.zoom(self)
         self.update_idletasks()
         if self._player is not None:
             self._resize()
@@ -232,8 +233,8 @@ class VideoCanvas(containers.Canvas):
     def _load_control_bar(self) -> None:
         """UI for bottom bar"""
         k = self._size[0] / 1280
-        self._control_bar = containers.Frame(
-            self, zoom_item=True, free_anchor=True)
+        self._control_bar = containers.Canvas(
+            self, auto_zoom=True, free_anchor=True)
         self._control_bar.place(
             width=self._size[0], height=60*k, y=self._size[1])
         self._play_button = _PlayButton(
@@ -287,7 +288,7 @@ class VideoCanvas(containers.Canvas):
             self._slide = None
 
         animations.Animation(
-            250, controllers.smooth, fps=60,
-            callback=lambda p: self._control_bar.place(
-                y=self._size[1] + self._control_bar._size[1]*p*k - dy)
+            250, lambda p: self._control_bar.place(
+                y=self._size[1] + self._control_bar._size[1]*p*k - dy),
+            controller=controllers.smooth, fps=60,
         ).start()

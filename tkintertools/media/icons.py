@@ -1,17 +1,18 @@
 """All icons with base64 format"""
 
+from __future__ import annotations
+
+__all__ = [
+    "parse",
+]
+
 import tkinter
 import typing
 
 import PIL.ImageTk
 from tkintertools.toolbox import enhanced
 
-__all__ = [
-    "BASE64_DATAS",
-    "parse",
-]
-
-BASE64_DATAS: dict[str, str] = {
+BASE64_DATAS: typing.Final[dict[str, str]] = {
     "fullscreen": "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABOUlEQVR4nO2Wz4rCMBDGf16WfQyFfR+FfYNuL/WVKqtnT4vgM+Xqn6s2EohQYppMYquH7QehNGTm+zLJTAZGjHjEGmgA7RlHYE43FsCpw/ZqfUfRdDi4jzpgu4rYXiQCtDMUsLXDEEwDtlO75r5eefwlC2iAinQUNuzZAlTLgfmWCeQ/jq3KEbB1dmEisRTYuzaV9ZUlgEQRPnJSBRw9t70UHIcbdvPvZsdBImBhyd3bHhIRIsf6qiM1RIS2iB0wEZD3jgLYA5+BMx8ck3fsvA0fuRH1EhSesH8Af8I6McjOd5kVszMNTd7OnPnQmcfqxBewAb5JKEQrIblExNrOn/soxdXQpVgHHqPqlY+ReiLPyz6eY/3uhkRntGSzPlqyy4BNqYlmFL8BEYfIkzpvpbGPXNSWj/hfuAFAwArFCQQ3DQAAAABJRU5ErkJggg==",
     "play": "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA50lEQVR4nO3XMUpDQRSF4Q9sVLAQFVTQ0i6t1lYi2mYLrsEl2LsDF2CTMmYHabOCpFQUTCXEsZknKRRB8jyFOfA309y/mLn3Dst8nzUc41Ag53hEwTvucfRXxTfxXIvP84ZbbLctcPZF8XlecI3VtgS6Pwg0jHGFlZRAqQxxmhQolT46SYGCGe6wmxIolSlusJESKJXJby5qd4ECDSNcJAVKpYedpEDBIC1QsJ8W2EsKPPzLSzhKPcNJqhFNU614lhxG/dQ4HqYWknFbK9lleindwmtyLVebxlPqY9JkHSc4+DxZxuLzAYtSled9u6veAAAAAElFTkSuQmCC",
     "pause": "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAxElEQVR4nO2XSwoCMQyGP72MuvdxCRlhYJY+jqQH0MGtt1GP40AlMEKRThpEHBf5Iavm+xvoKwXXn2oBHIBLFDWwBQYKNwR2bW7MitfcOvkKaIDQEWLepbPCiWdhKeCumLxilOAmBu5qKaAxGJUJrjRw4p1VMESV4Coj6wVkFXwJ8E2IH0P8Igp+FeOPEf4c01tD0vTdkt0+bErH32pKC+ChmBwVtlY48Vxi1AzYv30uTsA68zGRsU2bG7PiNbVO7uKXegIw48Yw1VCM+AAAAABJRU5ErkJggg==",
@@ -24,7 +25,7 @@ def parse(
     light: str = "black",
     dark: str = "white",
 ) -> dict[str, dict[typing.Literal["light", "dark"], enhanced.PhotoImage]]:
-    """Parse the base64 data to `enhanced.PhotoImage` with diffrent themes"""
+    """Parse the base64 data to `enhanced.PhotoImage` with diffrent themes."""
     _icons = {}
     for name, data in BASE64_DATAS.items():
         _icons[name] = {}
