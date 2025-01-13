@@ -47,7 +47,7 @@ class _FullscreenToggleButton(widgets.ToggleButton, _CustomizedWidget):
     """Customized toggle button for function of fullscreen"""
 
     def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, name="ToggleButton", **kwargs)
+        super().__init__(*args, **kwargs)
         self._bind(icon="fullscreen")
 
 
@@ -55,7 +55,7 @@ class _AudioImage(widgets.Image, _CustomizedWidget):
     """Customized image widget for displaying audio icon"""
 
     def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, name="Image", **kwargs)
+        super().__init__(*args, **kwargs)
         self._bind(icon="audio")
 
 
@@ -63,7 +63,7 @@ class _PlayButton(widgets.Button, _CustomizedWidget):
     """Customized Button for the ability to play or pause the video"""
 
     def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, name="Button", **kwargs)
+        super().__init__(*args, **kwargs)
         self._bind(icon="play")
 
     def _toggle(self) -> None:
@@ -157,7 +157,7 @@ class VideoCanvas(containers.Canvas):
         if self._player is not None:
             raise RuntimeError("The player is in use.")
 
-        self.update_idletasks()
+        self.update()
         self._player = ffpyplayer.player.MediaPlayer(file, autoexit=True)
         self._play({"auto_play": auto_play, "muted": muted})
 
