@@ -25,16 +25,13 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS",
     "Intended Audience :: Developers",
-    "Natural Language :: English",
-    "Natural Language :: Chinese (Simplified)",
-    "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
 dependencies = [
+    "typing-extensions",
     "tkintertools>=3.0.0rc6",
     "pillow>=10.0.0",
     "ffpyplayer>=4.5.0",
-    "typing_extensions",
 ]
 dynamic = ["version"]
 
