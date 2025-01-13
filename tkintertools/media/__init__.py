@@ -1,5 +1,5 @@
 """
-extension package for tkintertools to media
+Extension package of tkintertools to play media files
 
 Provides:
 

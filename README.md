@@ -1,6 +1,8 @@
 <h1 align="center">tkintertools-media</h1>
 
-<p align="center">Extension package for tkintertools to media</p>
+<p align="center"><a title="Official Website" href="https://xiaokang2022.github.io/tkintertools/">https://xiaokang2022.github.io/tkintertools/</a></p>
+
+<p align="center">Extension package of <code>tkintertools</code> to play media files</p>
 
 <p align="center">
 <a href="https://github.com/Xiaokang2022/tkintertools-media/releases"><img alt="Version" src="https://img.shields.io/github/v/release/Xiaokang2022/tkintertools-media?include_prereleases&logo=github&label=Version" title="Latest Version" /></a>
@@ -33,12 +35,9 @@
 📦 Installation
 ----------------
 
-```bash
+```shell
 pip install tkintertools-media
 ```
-
-> [!IMPORTANT]  
-> `tkintertools`: https://github.com/Xiaokang2022/tkintertools
 
 ### 👀 Preview
 
@@ -50,11 +49,11 @@ pip install tkintertools-media
 ![preview-2](./preview-2.png)
 
 ```python
-import tkintertools as tkt
-import tkintertools.media as media
+import tkintertools
+from tkintertools import media
 
-root = tkt.Tk(title="tkintertools-media")
-cv = media.VideoCanvas(root, free_anchor=True, keep_ratio="min", controls=True)
+root = tkintertools.Tk(title="tkintertools-media")
+cv = media.VideoCanvas(free_anchor=True, keep_ratio="min", controls=True)
 cv.place(width=1280, height=720, x=640, y=360, anchor="center")
 cv.open("your_video_file.mp4")
 root.mainloop()

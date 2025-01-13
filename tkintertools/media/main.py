@@ -78,7 +78,7 @@ class VideoCanvas(containers.Canvas):
 
     def __init__(
         self,
-        master: containers.Tk | containers.Toplevel | containers.Canvas,
+        master: containers.Tk | containers.Toplevel | containers.Canvas | None = None,
         *,
         controls: bool = False,
         loop: bool = False,
@@ -110,6 +110,7 @@ class VideoCanvas(containers.Canvas):
         self._video = self.create_image(0, 0, anchor="center")
         self._controls = controls
         self._loop = loop
+        self._slide = None
 
         if click_pause:
             self.bind("<ButtonRelease-1>", lambda _: (
@@ -226,9 +227,8 @@ class VideoCanvas(containers.Canvas):
     def _refresh_control_bar(self, pts: float) -> None:
         """Refresh the stat of the control bar"""
         self._progress_bar.set(pts/self._player.get_metadata()["duration"])
-        self._timer.set("%02d:%02d / %02d:%02d" % (
-            *divmod(round(pts), 60),
-            *divmod(round(self._player.get_metadata()["duration"]), 60)))
+        m1, s1, m2, s2 = *divmod(round(pts), 60), *divmod(round(self._player.get_metadata()["duration"]), 60)
+        self._timer.set(f"{m1:02d}:{s1:02d} / {m2:02d}:{s2:02d}")
 
     def _load_control_bar(self) -> None:
         """UI for bottom bar"""
@@ -281,7 +281,8 @@ class VideoCanvas(containers.Canvas):
             rx, ry = self.winfo_rootx(), self.winfo_rooty() + self._size[1]
             px, py = self.winfo_pointerxy()
             if -self._control_bar._size[1] <= py-ry <= 0 <= px-rx <= self._size[0]:
-                return self._display_control_bar(True)
+                self._display_control_bar(True)
+                return
             k, dy = 1, self._control_bar._size[1]
             self.after_cancel(self._slide)
             self.configure(cursor="none")
