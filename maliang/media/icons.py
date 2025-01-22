@@ -10,7 +10,7 @@ import tkinter
 import typing
 
 import PIL.ImageTk
-from tkintertools.toolbox import enhanced
+from maliang.toolbox import enhanced
 
 BASE64_DATAS: typing.Final[dict[str, str]] = {
     "fullscreen": "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABOUlEQVR4nO2Wz4rCMBDGf16WfQyFfR+FfYNuL/WVKqtnT4vgM+Xqn6s2EohQYppMYquH7QehNGTm+zLJTAZGjHjEGmgA7RlHYE43FsCpw/ZqfUfRdDi4jzpgu4rYXiQCtDMUsLXDEEwDtlO75r5eefwlC2iAinQUNuzZAlTLgfmWCeQ/jq3KEbB1dmEisRTYuzaV9ZUlgEQRPnJSBRw9t70UHIcbdvPvZsdBImBhyd3bHhIRIsf6qiM1RIS2iB0wEZD3jgLYA5+BMx8ck3fsvA0fuRH1EhSesH8Af8I6McjOd5kVszMNTd7OnPnQmcfqxBewAb5JKEQrIblExNrOn/soxdXQpVgHHqPqlY+ReiLPyz6eY/3uhkRntGSzPlqyy4BNqYlmFL8BEYfIkzpvpbGPXNSWj/hfuAFAwArFCQQ3DQAAAABJRU5ErkJggg==",

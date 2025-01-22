@@ -3,16 +3,16 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tkintertools-media"
+name = "maliang-media"
 authors = [{ name = "Xiaokang2022", email = "2951256653@qq.com" }]
 maintainers = [{ name = "Xiaokang2022", email = "2951256653@qq.com" }]
-description = "Extension package for tkintertools to matplotlib"
+description = "Extension package for maliang to matplotlib"
 readme = "README.md"
 license = { text = "MIT License" }
 requires-python = ">=3.10"
 keywords = [
     "tkinter",
-    "tkintertools",
+    "maliang",
     "media",
     "cross-platform",
     "themed",
@@ -29,21 +29,21 @@ classifiers = [
 ]
 dependencies = [
     "typing-extensions",
-    "tkintertools>=3.0.0rc6",
+    "maliang>=3.0.0rc6",
     "pillow>=10.0.0",
     "ffpyplayer>=4.5.0",
 ]
 dynamic = ["version"]
 
 [project.urls]
-"Bug tracker" = "https://github.com/Xiaokang2022/tkintertools-media/issues"
-"Source code" = "https://github.com/Xiaokang2022/tkintertools-media"
+"Bug tracker" = "https://github.com/Xiaokang2022/maliang-media/issues"
+"Source code" = "https://github.com/Xiaokang2022/maliang-media"
 
 [tool.setuptools.dynamic]
-version = { attr = "tkintertools.media.__version__" }
+version = { attr = "maliang.media.__version__" }
 
 [tool.setuptools.packages.find]
-include = ["tkintertools*"]
+include = ["maliang*"]
 
 [tool.pylint]
 output-format = "colorized"

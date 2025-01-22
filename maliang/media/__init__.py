@@ -1,5 +1,4 @@
-"""
-Extension package of tkintertools to play media files
+"""Extension package of `maliang` to play media files.
 
 Provides:
 

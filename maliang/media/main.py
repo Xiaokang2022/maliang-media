@@ -16,11 +16,11 @@ import ffpyplayer.player
 import PIL.Image
 import PIL.ImageTk
 import typing_extensions
-from tkintertools.animation import animations, controllers
-from tkintertools.core import containers, virtual
-from tkintertools.standard import images, widgets
-from tkintertools.theme import manager
-from tkintertools.toolbox import enhanced
+from maliang.animation import animations, controllers
+from maliang.core import containers, virtual
+from maliang.standard import images, widgets
+from maliang.theme import manager
+from maliang.toolbox import enhanced
 
 from . import icons
 
